@@ -1,0 +1,91 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+.venv
+env/
+venv/
+ENV/
+backend/venv/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Project specific
+frontend/build/
+frontend/dist/
+backend/__pycache__/
+backend/src/__pycache__/
+backend/.cache
+
+# Security and certificates
+*.pem
+*.key
+*.crt
+*.csr
+*.srl
+*.p12
+*.pfx
+*.der
+backend/certs/
+.ssl/
+.certificates/
+rootCA.*
+
+# Docker and Environment
+.docker/
+docker-compose.override.yml
+*.env
+!.env.template
+.env*
+.flaskenv*
+!.env.template
+!.env.example
+
+# Secrets and Keys
+*secret*
+*key*
+!secret.template
+!key.template
+*.key.json
+*credentials*
+*password*
+*token*
+!requirements.txt  # Exception for requirements.txt 
