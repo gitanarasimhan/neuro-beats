@@ -1,130 +1,142 @@
-# AI Song Recommender
+# Neuro-Beats
 
-A full-stack application that recommends songs based on mood using AI and Spotify's API.
+AI-powered mood-based music recommendation system that suggests personalized playlists and activities based on your emotional state.
 
 ## Project Structure
 
 ```
-ai-song-recommender/
-├── backend/
-│   ├── src/
-│   │   ├── __init__.py
-│   │   ├── app.py
-│   │   ├── config.py
-│   │   ├── models/
-│   │   ├── routes/
-│   │   └── services/
-│   ├── tests/
-│   ├── config/
-│   ├── requirements.txt
-│   └── env.template
-├── frontend/
-│   └── song-recommender-frontend/
-│       ├── src/
-│       ├── public/
-│       ├── package.json
-│       └── .env.template
-└── README.md
+neuro-beats/
+├── backend/                     # Flask backend application
+│   ├── src/                    # Source code
+│   │   ├── models/            # Data models and mappings
+│   │   ├── routes/            # API route handlers
+│   │   ├── services/          # Business logic and external services
+│   │   └── utils/             # Helper functions
+│   ├── Dockerfile             # Backend container configuration
+│   ├── requirements.txt       # Python dependencies
+│   └── env.template           # Environment variables template
+├── frontend/                   # React frontend application
+│   ├── src/                   # Source code
+│   │   ├── assets/           # Images and static files
+│   │   └── components/       # React components
+│   ├── public/               # Public assets
+│   ├── Dockerfile            # Frontend container configuration
+│   └── nginx.conf            # Nginx configuration
+├── docker-compose.yml         # Docker services orchestration
+├── deploy.sh                  # Deployment script
+└── .gitignore                # Git ignore rules
 ```
 
-## Setup Instructions
+## Setup and Installation
 
-### Backend Setup
+### Prerequisites
+- Docker and Docker Compose
+- Node.js 18+ (for local development)
+- Python 3.11+ (for local development)
+- mkcert (for SSL certificates)
 
-1. Create a virtual environment:
-   ```bash
-   cd backend
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+### Environment Setup
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+1. Clone the repository:
+```bash
+git clone https://github.com/gitanarasimhan/neuro-beats.git
+cd neuro-beats
+```
 
-3. Set up environment variables:
-   ```bash
-   cp env.template .env
-   ```
-   Then edit `.env` with your actual credentials.
+2. Create backend environment file:
+```bash
+cp backend/.env.template backend/.env
+```
 
-### Frontend Setup
+3. Generate SSL certificates (development):
+```bash
+mkcert -install
+mkcert -key-file backend/certs/localhost+2-key.pem -cert-file backend/certs/localhost+2.pem localhost 127.0.0.1
+```
 
-1. Install dependencies:
-   ```bash
-   cd frontend/song-recommender-frontend
-   npm install
-   ```
+4. Update environment variables in `backend/.env`:
+```env
+# Required secrets (DO NOT commit actual values)
+SECRET_KEY=your-secure-random-key
+SPOTIFY_CLIENT_ID=your-spotify-client-id
+SPOTIFY_CLIENT_SECRET=your-spotify-client-secret
+```
 
-2. Set up environment variables:
-   ```bash
-   cp .env.template .env.local
-   ```
-   Then edit `.env.local` with your configuration.
+### Running with Docker
 
-## Running the Application
+1. Build and start the containers:
+```bash
+./deploy.sh
+```
 
-### Backend
+Or manually:
+```bash
+docker-compose build
+docker-compose up -d
+```
+
+2. Access the application:
+- Frontend: https://localhost
+- Backend API: https://localhost/api
+- Health check: https://localhost/api/health
+
+### Local Development
+
+#### Backend
 ```bash
 cd backend
-flask run
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
 ```
 
-### Frontend
+#### Frontend
 ```bash
-cd frontend/song-recommender-frontend
+cd frontend
+npm install
 npm start
 ```
 
-## Environment Variables
+## Features
 
-### Backend Variables
-- `FLASK_ENV`: Application environment (development/production)
-- `SECRET_KEY`: Flask secret key
-- `SPOTIFY_CLIENT_ID`: Your Spotify API client ID
-- `SPOTIFY_CLIENT_SECRET`: Your Spotify API client secret
-- `DATABASE_URL`: Database connection string
-- `CORS_ORIGINS`: Allowed CORS origins
+- 🎵 Mood-based music recommendations
+- 🎯 Personalized activity suggestions
+- 🔒 Secure HTTPS communication
+- 🚀 Docker containerization
+- 🔄 Health monitoring
+- 📱 Responsive web design
 
-### Frontend Variables
-- `REACT_APP_API_ENDPOINT`: Backend API endpoint
-- `REACT_APP_ENV`: Application environment
-- `REACT_APP_ANALYTICS_ID`: (Optional) Analytics ID
-- `REACT_APP_ERROR_REPORTING`: (Optional) Enable error reporting
-- `REACT_APP_ENABLE_YOUTUBE`: (Optional) Enable YouTube integration
-- `REACT_APP_ENABLE_DARK_MODE`: (Optional) Enable dark mode feature
+## API Endpoints
 
-## Development
+- `POST /api/recommend`
+  - Input: `{ "input": "your mood description" }`
+  - Output: 
+    ```json
+    {
+      "mood": "detected_mood",
+      "music_suggestion": "genre",
+      "spotify_playlist_url": "playlist_url",
+      "activity_suggestion": "suggested_activity"
+    }
+    ```
 
-### Code Style
-- Backend: Uses Black for Python code formatting
-- Frontend: Uses Prettier for JavaScript code formatting
+## Security
 
-### Testing
-- Backend: `pytest`
-- Frontend: `npm test`
+- HTTPS enabled by default
+- Environment-based configuration
+- Secure headers in Nginx
+- Rate limiting
+- CORS protection
 
-## Production Deployment
+## Contributing
 
-### Backend
-1. Set `FLASK_ENV=production`
-2. Use gunicorn for serving:
-   ```bash
-   gunicorn -w 4 "src.app:create_app()"
-   ```
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
-### Frontend
-1. Build the production bundle:
-   ```bash
-   npm run build
-   ```
-2. Serve using a static file server
+## License
 
-## Security Notes
-
-- Never commit `.env` files
-- Keep API keys and secrets secure
-- Use HTTPS in production
-- Implement rate limiting
-- Set up proper CORS configuration 
+This project is licensed under the MIT License - see the LICENSE file for details. 
