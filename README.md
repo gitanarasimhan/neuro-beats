@@ -1,5 +1,7 @@
 # Neuro-Beats
 
+https://github.com/user-attachments/assets/feaef44f-6eb6-4d47-8b5c-af48765fa6ef
+
 AI-powered mood-based music recommendation system that suggests personalized playlists and activities based on your emotional state.
 
 ## Project Structure
