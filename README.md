@@ -78,8 +78,8 @@ docker-compose up -d
 ```
 
 2. Access the application:
-- Frontend: https://localhost
-- Backend API: https://localhost/api
+- Frontend: https://localhost:3000/
+- Backend API: https://localhost:5000/
 - Health check: https://localhost/api/health
 
 ### Local Development
